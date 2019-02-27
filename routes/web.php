@@ -12,6 +12,6 @@
 */
 
 Route::get('/', function () {
-    //return view('welcome');
-    dd(\App\Models\User::FindOrFail(1)->userroles()->first()->roles);
+    return view('welcome');
+
 });
