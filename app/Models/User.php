@@ -23,7 +23,8 @@ class User extends Model
     protected $hidden=[
         'password',
     ];
-    public function userroles(){
+    public function userroles()
+    {
         return $this->hasMany(UserRole::class, 'user_id', 'id');
     }
 }
