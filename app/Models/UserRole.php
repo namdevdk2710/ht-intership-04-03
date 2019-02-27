@@ -13,6 +13,6 @@ class UserRole extends Model
     ];
     public function roles()
     {
-        return $this->belongsTo (Role::class, 'role_id', 'id');
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 }
