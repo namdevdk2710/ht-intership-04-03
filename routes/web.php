@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', [
+    'as' => 'trangchu',
+    'uses' => 'V1\Web\PageController@getIndex'
+]);
