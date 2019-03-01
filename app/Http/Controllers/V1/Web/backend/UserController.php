@@ -25,7 +25,6 @@ class UserController extends Controller
     {
         $user = $this->repository->index();
         return view('backend.show_user_list', compact('user'));
-
     }
 
     /**
@@ -85,12 +84,12 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $result= $this->repository->update($user->id, $request->all());
-        if($result)
+        if ($result)
         {
-            session()->flash('message','Cập nhật thông tin thành công!');
+            session()->flash('message', 'Cập nhật thông tin thành công!');
             return redirect()->back();
         }
-        session()->flash('message','Cập nhật thông tin thất bại!');
+        session()->flash('message', 'Cập nhật thông tin thất bại!');
         return redirect()->back();
     }
 
@@ -106,9 +105,10 @@ class UserController extends Controller
         return $result;
     }
 
-    public function login(Request $request){
-        $cresident= $request->only(['email','password']);
-        $result = $this->repository->login($cresident,$request->remember);
-        return response()->json($result) ;
+    public function login(Request $request)
+    {
+        $cresident = $request->only(['email', 'password']);
+        $result = $this->repository->login($cresident, $request->remember);
+        return response()->json($result);
     }
 }

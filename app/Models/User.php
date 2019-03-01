@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Model implements Authenticatable
-{   use AuthenticableTrait;
+{
+    use AuthenticableTrait;
+
     protected $table= 'users';
 
     protected $fillable=[
@@ -30,9 +32,8 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(UserRole::class, 'user_id', 'id');
     }
-    public function setPasswordAttribute($pass){
-
+    public function setPasswordAttribute($pass)
+    {
         $this->attributes['password'] = Hash::make($pass);
-
     }
 }
