@@ -27,17 +27,19 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->model->findorfail($id);
     }
 
     public function store($data)
     {
-        return $this->model->store($data);
+        return $this->model->create($data);
     }
 
     public function update($id, $data)
     {
-        return $this->model->update($id, $data);
+        $model= $this->model->findorfail($id);
+        $model->fill($data);
+        return $model->save();
     }
 
     public function destroy($id)
