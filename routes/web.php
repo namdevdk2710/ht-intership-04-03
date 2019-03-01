@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('backend.show_user_list');
 });
 Route::get('/home', [
     'as' => 'trangchu',
