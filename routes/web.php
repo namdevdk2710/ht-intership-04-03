@@ -20,4 +20,3 @@ Route::get('/home', [
     'as' => 'trangchu',
     'uses' => 'V1\Web\PageController@getIndex',
 ]);
-
