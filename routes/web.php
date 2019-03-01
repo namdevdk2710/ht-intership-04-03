@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('backend.show_user_list');
 });
-
 Route::resource('user','V1\Web\backend\UserController');
 Route::post('login','V1\Web\backend\UserController@login')->name('login');
+Route::get('/home', [
+    'as' => 'trangchu',
+    'uses' => 'V1\Web\PageController@getIndex'
+]);
+
