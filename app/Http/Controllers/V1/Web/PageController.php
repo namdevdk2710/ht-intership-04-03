@@ -6,25 +6,24 @@ use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
-    public  function getIndex()
+    public function getIndex()
     {
         return view('page.home');
     }
-    public function  getProductType ()
+    public function getProductType ()
     {
         return view('page.product_type') ;
     }
-    public function  getPricing()
+    public function getPricing()
     {
         return view('page.pricing') ; 
     }
-    public function  getShopingCart()
+    public function getShopingCart()
     {
         return view('page.shoping_cart') ;
     }
-    public  function  getSinup()
+    public function getSinup()
     {
         return view('page.sinup') ;
     }
-
 }
