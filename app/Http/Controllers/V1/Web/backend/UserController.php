@@ -84,8 +84,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $result= $this->repository->update($user->id, $request->all());
-        if ($result)
-        {
+        if ($result) {
             session()->flash('message', 'Cập nhật thông tin thành công!');
             return redirect()->back();
         }
