@@ -40,5 +40,4 @@ class UpdateUserPasswordRequest extends FormRequest
             'confirm_password.same' => 'Mật khẩu xác nhận không chính xác',
         ];
     }
-
 }
