@@ -4,6 +4,8 @@ namespace App\Http\Controllers\V1\Web\backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserPasswordRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Repositories\V1\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
@@ -87,14 +89,25 @@ class UserController extends Controller
      * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $result = $this->repository->update($user->id, $request);
         if ($result) {
-            session()->flash('message', 'Cập nhật thông tin thành công!');
+            session()->flash('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
             return redirect()->back();
         }
-        session()->flash('message', 'Cập nhật thông tin thất bại!');
+        session()->flash('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
+        return redirect()->back();
+    }
+
+    public function updatePassword(UpdateUserPasswordRequest $request, User $user)
+    {
+        $result = $this->repository->update($user->id, $request);
+        if ($result) {
+            session()->flash('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
+            return redirect()->back();
+        }
+        session()->flash('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
         return redirect()->back();
     }
 

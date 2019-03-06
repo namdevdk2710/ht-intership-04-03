@@ -23,5 +23,6 @@ Route::get('/home', [
 ]);
 Route::prefix('admin')->group(function () {
     Route::get('/', 'V1\Web\backend\UserController@index')->name('admin.index');
-    Route::resource('user', 'V1\Web\backend\UserController');
+    Route::resource('user', 'V1\Web\backend\UserController')->except('show');
+    Route::put('/user/{user}/password', 'V1\Web\backend\UserController@updatePassword')->name('user.update_password');
 });
