@@ -26,7 +26,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $bool= User::findorfail($id)->userroles()->get();
         if ($bool->isEmpty())
+        {
             return true;
+        }
         return false;
     }
 }
