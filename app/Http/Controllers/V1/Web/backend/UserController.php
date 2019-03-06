@@ -66,7 +66,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-
         //return view('',compact('user'));
     }
 
@@ -130,5 +129,4 @@ class UserController extends Controller
     {
         return view('frontend.page.login');
     }
-
 }

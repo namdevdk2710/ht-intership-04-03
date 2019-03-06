@@ -37,15 +37,15 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name.required' => 'Vui lòng nhập tên người dùng',
-            'password.required'  => 'Vui lòng nhập mật khẩu',
-            'password.min'  => 'Mật khẩu chứa tối thiểu 6 ký tự',
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'password.min' => 'Mật khẩu chứa tối thiểu 6 ký tự',
             'confirm_password.required' => 'Vui lòng xác nhận mật khẩu',
             'confirm_password.same' => 'Mật khẩu xác nhận không chính xác',
             'email.required' => 'Vui lòng nhập email',
             'email.unique' => 'Email này đã bị sử dụng',
             'birthday.before' => 'Ngày sinh không hợp lệ',
             'birthday.date_format' => 'Ngày sinh không đúng định dạng',
-            'birthday.requird' => 'Vui lòng nhập ngày sinh',
+            'birthday.required' => 'Vui lòng nhập ngày sinh',
             'phone.min' => 'SĐT chứ tối thiểu 5 ký tự',
             'phone.numeric' => 'SĐT phải chứa ký tự là số',
         ];

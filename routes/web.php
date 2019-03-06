@@ -19,7 +19,7 @@ Route::get('/home', [
     'as' => 'trangchu',
     'uses' => 'V1\Web\PageController@getIndex',
 ]);
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->group(function () {
     Route::get('/', 'V1\Web\backend\UserController@index')->name('admin.index');
     Route::resource('user', 'V1\Web\backend\UserController');
 });
