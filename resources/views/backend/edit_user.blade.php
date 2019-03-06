@@ -27,6 +27,9 @@
                                     </ul>
                                 </div>
                             @endif
+                            @if(Session::has('message'))
+                                {!!Session::get('message')!!}
+                            @endif
                             <form method="post" action="{{route('user.update',['user'=>$user->id])}}"
                                   enctype="multipart/form-data">
                                 @csrf
@@ -71,13 +74,9 @@
                             <div class="card-header">
                             </div>
                             <div class="card-body">
-                                <form method="post">
+                                <form method="post" action="{{route('user.update_password',[$user->id])}}">
                                     @csrf
-                                    <div class="form-group">
-                                        <label>Mật Khẩu Cũ</label>
-                                        <input type="password" name="old_password" id="old_password"
-                                               class="form-control">
-                                    </div>
+                                    @method('put')
                                     <div class="form-group">
                                         <label>Mật Khẩu Mới</label>
                                         <input type="password" name="password" id="password" class="form-control">

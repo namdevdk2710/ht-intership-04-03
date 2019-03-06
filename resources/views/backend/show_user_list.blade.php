@@ -29,7 +29,6 @@
                                             <th>STT</th>
                                             <th>TÊN</th>
                                             <th>Ngày Tạo</th>
-                                            <th>Thông tin</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
                                         </tr>
@@ -40,7 +39,6 @@
                                                 <td>{{$users->perPage()*($users->currentPage()-1)+$index+1}}</td>
                                                 <td style="width: 200px;">{{$user->name}}</td>
                                                 <td>{{$user->created_at}}</td>
-                                                <td><a href="#" class="btn btn-info">Xem</a></td>
                                                 <td><a href="{{route('user.edit',['user'=>$user->id])}}" class="btn btn-success">Sửa</a></td>
                                                 <td><form action="{{route('user.destroy',['user'=>$user->id])}}" method="post">
                                                         @csrf
