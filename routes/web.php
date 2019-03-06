@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'V1\Web\backend\UserController@index');
+Route::get('/', function (){
+    return view('frontend.welcome');
+});
 
 Route::get('login', 'V1\Web\backend\UserController@login')->name('login');
 Route::post('login', 'V1\Web\backend\UserController@loginAttempt')->name('login_attempt');
