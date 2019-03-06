@@ -59,7 +59,7 @@
                                                required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Xác nhận<span style="color: red">*</span></label>
+                                        <label>Xác Nhận Mật Khẩu<span style="color: red">*</span></label>
                                         <input type="password" id="confirm_password" name="confirm_password"
                                                class="form-control" required>
                                     </div>
