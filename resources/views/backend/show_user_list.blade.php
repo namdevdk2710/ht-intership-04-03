@@ -12,89 +12,52 @@
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Table</h2>
-                <p class="section-lead">Example of some Bootstrap table components.</p>
-
+                @if(Session::has('message'))
+                    {!!Session::get('message')!!}
+                @endif
                 <div class="row">
+
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="height: 500px;">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-md">
+                                        <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Created At</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>STT</th>
+                                            <th>TÊN</th>
+                                            <th>Ngày Tạo</th>
+                                            <th>Thông tin</th>
+                                            <th>Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Irwansyah Saputra</td>
-                                            <td>2017-01-09</td>
-                                            <td>
-                                                <div class="badge badge-success">Active</div>
-                                            </td>
-                                            <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Hasan Basri</td>
-                                            <td>2017-01-09</td>
-                                            <td>
-                                                <div class="badge badge-success">Active</div>
-                                            </td>
-                                            <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Kusnadi</td>
-                                            <td>2017-01-11</td>
-                                            <td>
-                                                <div class="badge badge-danger">Not Active</div>
-                                            </td>
-                                            <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Rizal Fakhri</td>
-                                            <td>2017-01-11</td>
-                                            <td>
-                                                <div class="badge badge-success">Active</div>
-                                            </td>
-                                            <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Isnap Kiswandi</td>
-                                            <td>2017-01-17</td>
-                                            <td>
-                                                <div class="badge badge-success">Active</div>
-                                            </td>
-                                            <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                        </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+                                        @foreach($users as $index=>$user)
+                                            <tr id="table-row" >
+                                                <td>{{$users->perPage()*($users->currentPage()-1)+$index+1}}</td>
+                                                <td style="width: 200px;">{{$user->name}}</td>
+                                                <td>{{$user->created_at}}</td>
+                                                <td><a href="#" class="btn btn-info">Xem</a></td>
+                                                <td><a href="{{route('user.edit',['user'=>$user->id])}}" class="btn btn-success">Sửa</a></td>
+                                                <td><form action="{{route('user.destroy',['user'=>$user->id])}}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <input class="btn btn-danger" type="submit" value="Xóa" data-name="{{$user->name}}" id="user_delete">
+                                                    </form>
+                                                 </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="card-footer text-right">
                                 <nav class="d-inline-block">
                                     <ul class="pagination mb-0">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1"><i
-                                                        class="fas fa-chevron-left"></i></a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1 <span
-                                                        class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                                        </li>
+                                        {{$users->links('backend.modules.custom_pagination')}}
                                     </ul>
                                 </nav>
                             </div>
@@ -109,4 +72,7 @@
 
 @endsection
 @section('footer')
+@endsection
+@section('script')
+    <script src="{{asset('js/backend/user_list.js')}}"></script>
 @endsection

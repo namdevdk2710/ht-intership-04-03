@@ -1,4 +1,4 @@
-@extends('master')
+@extends('frontend.master')
 @section('content')
 <div class="inner-header">
 		<div class="container">
@@ -16,22 +16,26 @@
 	
 	<div class="container">
 		<div id="content">
-			
-			<form action="#" method="post" class="beta-form-checkout">
+
+			<form action="{{route('login_attempt')}}" method="post" class="beta-form-checkout">
+				@csrf
 				<div class="row">
 					<div class="col-sm-3"></div>
 					<div class="col-sm-6">
+
 						<h4>Đăng nhập</h4>
+						@if(\Illuminate\Support\Facades\Session::has('message'))
+							{{\Illuminate\Support\Facades\Session::get('message')}}
+						@endif
 						<div class="space20">&nbsp;</div>
 
-						
 						<div class="form-block">
-							<label for="email">Email address*</label>
-							<input type="email" id="email" required>
+							<label for="email">Email<span style="color: red"> *</span></label>
+							<input type="email" id="email" name="email" id="email" required>
 						</div>
 						<div class="form-block">
-							<label for="phone">Password*</label>
-							<input type="text" id="phone" required>
+							<label for="password">Password<span style="color: red"> *</span></label>
+							<input type="password" id="password" name="password" id="password" required>
 						</div>
 						<div class="form-block">
 							<button type="submit" class="btn btn-primary">Login</button>

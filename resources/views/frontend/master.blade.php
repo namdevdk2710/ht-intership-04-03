@@ -18,12 +18,12 @@
 </head>
 <body>
 
-	@include('header')
+	@include('frontend.header')
 	<div class="rev-slider">
     @yield('content')
     </div> <!-- .container -->
 
-    @include('footer')
+    @include('frontend.footer')
 	<div class="copyright">
 		<div class="container">
 			<p class="pull-left">Privacy policy. (&copy;) 2014</p>
