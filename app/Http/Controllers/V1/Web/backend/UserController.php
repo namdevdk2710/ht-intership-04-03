@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Repositories\V1\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -23,8 +24,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = $this->repository->index();
-        return view('backend.show_user_list', compact('user'));
+        $users = $this->repository->paginate(5);
+        return view('backend.show_user_list', compact('users'));
     }
 
     /**
@@ -32,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-//        return view('backend.create_user_form');
+        return view('backend.create_user');
     }
 
     /**
@@ -45,11 +46,17 @@ class UserController extends Controller
                 'name' => $request->input('name'),
                 'password' => $request->input('password'),
                 'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'birthday' => $request->input('birthday'),
             ]
         );
-        return response()->json($result);
+        if ($result) {
+            session()->flash('message', "<div class='alert alert-success'>Thêm người dùng thành công!</div>");
+            return redirect()->route('user.index');
+        };
+        session()->flash('message', "<div class='alert alert-success'>Thêm người dùng thất bại</div>");
+        return redirect()->back();
     }
-
 
     /**
      * Display the specified resource.
@@ -59,7 +66,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user= $this->repository->find(1);
         //return view('',compact('user'));
     }
 
@@ -71,7 +77,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //return view('',compact('user'));
+        return view('backend.edit_user', compact('user'));
     }
 
     /**
@@ -83,7 +89,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $result= $this->repository->update($user->id, $request->all());
+        $result = $this->repository->update($user->id, $request);
         if ($result) {
             session()->flash('message', 'Cập nhật thông tin thành công!');
             return redirect()->back();
@@ -100,14 +106,27 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $result = $this->repository->destroy($user);
-        return $result;
+        $result = $this->repository->destroy($user->id);
+        return redirect()->back();
     }
 
-    public function login(Request $request)
+    public function loginAttempt(Request $request)
     {
         $cresident = $request->only(['email', 'password']);
         $result = $this->repository->login($cresident, $request->remember);
-        return response()->json($result);
+        if ($result) {
+            if ($this->repository->hasRole(Auth::id())) {
+                return redirect()->route('admin.home');
+            }
+            session()->flash('message', 'Đăng nhập thành công!');
+            return redirect()->back();
+        }
+        session()->flash('message', 'Đăng nhập thất bại!');
+        return redirect()->back();
+    }
+
+    public function login()
+    {
+        return view('frontend.page.login');
     }
 }

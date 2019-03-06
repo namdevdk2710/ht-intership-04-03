@@ -10,7 +10,9 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   $this->call(RolesTableSeeder::class); //tạo Role mặc định
-        $this->call(UserRolesTableSeeder::class); //tự động tạo USER và thêm USERROLE
+    {
+        //$this->call(RolesTableSeeder::class); //tạo Role mặc định
+        //$this->call(UserRolesTableSeeder::class); //tự động tạo USER và thêm USERROLE
+        $this->call(AdminSeeder::class);
     }
 }

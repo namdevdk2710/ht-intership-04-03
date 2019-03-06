@@ -38,7 +38,15 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function update($id, $data)
     {
         $model= $this->model->findorfail($id);
-        $model->fill($data);
+
+        $dataArray= $data->all();
+        $fill =$model->fill($dataArray);
+        if ($data->hasFile('image')) {
+            $file = $data->image;
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/img/avatar'), $fileName);
+            $fill->image= $fileName;
+        }
         return $model->save();
     }
 
