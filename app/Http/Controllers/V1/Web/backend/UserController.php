@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
 use App\Repositories\V1\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
@@ -123,7 +124,7 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function loginAttempt(Request $request)
+    public function loginAttempt(UserLoginRequest $request)
     {
         $cresident = $request->only(['email', 'password']);
         $result = $this->repository->login($cresident, $request->remember);

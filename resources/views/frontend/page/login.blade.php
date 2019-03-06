@@ -24,8 +24,17 @@
 					<div class="col-sm-6">
 
 						<h4>Đăng nhập</h4>
-						@if(\Illuminate\Support\Facades\Session::has('message'))
-							{{\Illuminate\Support\Facades\Session::get('message')}}
+						@if ($errors->any())
+							<div class="alert alert-danger">
+								<ul>
+									@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+									@endforeach
+								</ul>
+							</div>
+						@endif
+						@if(Session::has('message'))
+							{!!Session::get('message')!!}
 						@endif
 						<div class="space20">&nbsp;</div>
 
