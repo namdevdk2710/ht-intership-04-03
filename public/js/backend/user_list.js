@@ -1,18 +1,18 @@
 $(document).ready(function () {
     $(document).on('click', '.pagination a', function (e) {
         e.preventDefault();
-
+        let searchParams = new URLSearchParams(window.location.search);
+        let param = searchParams.get('search');
         var page = $(this).attr('href').split('page=')[1];
-        getUser(page);
+        getUser(param, page);
 
     });
 
-    function getUser(page) {
+    function getUser(param,page) {
         $.ajax({
             type: 'get',
-            url: '?page=' + page,
+            url: '?search='+param+'&page=' + page,
             success: function(data) {
-
                 $('#table-body').html($(data).find('#table-row'));
             }
         });

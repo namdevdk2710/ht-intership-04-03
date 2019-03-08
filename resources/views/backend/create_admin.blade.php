@@ -11,12 +11,12 @@
                     {!!Session::get('message')!!}
                 @endif
                 <div class="row d-flex justify-content-center">
-                    <div class="col-8 ">
+                    <div class="col-6 ">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Đăng Ký</h5>
+                                <h5>Thêm Quản Trị Viên</h5>
                             </div>
-                            <form method="post" action="{{route('user.store')}}">
+                            <form method="post" action="{{route('employee.store')}}">
                                 @csrf
                                 <div class="card-body" id="card-1">
                                     <div class="form-group">
@@ -48,6 +48,22 @@
                                         <input type="date" id="birthday" name="birthday" class="form-control" required
                                                value="{{old('birthday')}}">
                                     </div>
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <th>Quyền</th>
+                                        @foreach($permission as $p)
+                                            <th>{{$p->name}}</th>
+                                            @endforeach
+                                        </thead>
+                                        <tbody>
+                                        <tr data-id="">
+                                            <td></td>
+                                            @foreach($permission as $p)
+                                                <td><input type="checkbox" value="{{$p->id}}" name="permission[]"></td>
+                                            @endforeach
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                     <div class="form-group">
                                         <label>Mật Khẩu <span style="color: red">*</span></label>
                                         <input type="password" id="password" name="password" class="form-control"
@@ -58,6 +74,7 @@
                                         <input type="password" id="confirm_password" name="confirm_password"
                                                class="form-control" required>
                                     </div>
+
                                     <div class="form-group d-flex justify-content-end">
                                         <input type="submit" id="submit" class="btn btn-success" value="Đăng Ký"
                                                required>

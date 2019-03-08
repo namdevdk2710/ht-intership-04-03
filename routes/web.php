@@ -12,17 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('frontend.welcome');
+    return view('backend.create_admin');
 });
 
 Route::get('login', 'V1\Web\backend\UserController@login')->name('login');
 Route::post('login', 'V1\Web\backend\UserController@loginAttempt')->name('login_attempt');
-Route::get('/home', [
-    'as' => 'trangchu',
-    'uses' => 'V1\Web\PageController@getIndex',
-]);
+
 Route::prefix('admin')->group(function () {
-    Route::get('/', 'V1\Web\backend\UserController@index')->name('admin.index');
     Route::resource('user', 'V1\Web\backend\UserController')->except('show');
-    Route::put('/user/{user}/password', 'V1\Web\backend\UserController@updatePassword')->name('user.update_password');
+    Route::resource('employee', 'V1\Web\backend\AdminController');
+    Route::prefix('user')->group(function () {
+        Route::put('/{user}/password', 'V1\Web\backend\UserController@updatePassword')->name('user.update_password');
+        Route::get('/search','V1\Web\backend\UserController@searchCustomer')->name('user.search_customer');
+    });
 });

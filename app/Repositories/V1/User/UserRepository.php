@@ -16,18 +16,17 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     }
     public function paginate($num)
     {
-        return User::paginate($num);
+        return User::doesntHave('userroles')->orderby('name','asc')->paginate($num);
     }
     public function login($data, $remember = false)
     {
         return Auth::attempt($data, $remember);
     }
-    public function hasRole($id)
+
+    public function search($data, $num)
     {
-        $bool= User::findorfail($id)->userroles()->get();
-        if ($bool->isEmpty()) {
-            return true;
-        }
-        return false;
+        $user = User::where('email', 'LIKE', '%'.$data->search.'%')->orwhere('name','LIKE','%'.$data->search.'%')->paginate($num);
+        $user->appends(['search'=>$data->search]);
+        return $user;
     }
 }
