@@ -257,9 +257,9 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-user"></i> <span>Quản Trị Viên</span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="#">Danh Sách </a></li>
-                            <li><a class="nav-link" href="#">Thêm </a></li>
-
+                            <li><a class="nav-link" href="{{route('employee.index')}}">Danh Sách </a></li>
+                            <li><a class="nav-link" href="#">Phân Quyền </a></li>
+                            <li><a class="nav-link" href="{{route('employee.create')}}">Thêm </a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

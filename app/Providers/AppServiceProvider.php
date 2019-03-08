@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Role;
+use App\Repositories\V1\Admin\AdminRepositoryInterface;
+use View;
 use Illuminate\Support\ServiceProvider;
-
-use App\Repositories\V1\Todo\TodoRepository;
-use App\Repositories\V1\Todo\TodoRepositoryInterface;
+use App\Repositories\V1\Admin\AdminRepository;
 use App\Repositories\V1\User\UserRepository;
 use App\Repositories\V1\User\UserRepositoryInterface;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $permission = Role::where('id','!=','1')->get();
+        return View::share('permission',$permission);
     }
 
     /**
@@ -28,8 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserRoleRepositoryInterface::class, UserRoleRepository::class);
-        $this->app->bind(TodoRepositoryInterface::class, TodoRepository::class);
+        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 }

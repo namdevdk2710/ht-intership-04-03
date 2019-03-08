@@ -3,7 +3,12 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Quản Lý Người Dùng</h1>
+                <h1>Quản Lý Quản Trị Viên</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="#">Components</a></div>
+                    <div class="breadcrumb-item">Table</div>
+                </div>
             </div>
 
             <div class="section-body">
@@ -14,7 +19,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{route('user.search_customer')}}" method="get">
+                                <form action="#" method="get">
                                     <div class="row">
                                         <div class="col-4"><input type="text" name="search" class="form-control" placeholder="Email Hoặc Tên"></div>
                                         <input type="submit" class="btn btn-success" value="Tìm kiếm">
@@ -38,6 +43,7 @@
                                             <th>STT</th>
                                             <th>Tên</th>
                                             <th>Email</th>
+                                            <th>Quyền</th>
                                             <th>Ngày Tạo</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
@@ -49,14 +55,19 @@
                                                 <td>{{$users->perPage()*($users->currentPage()-1)+$index+1}}</td>
                                                 <td style="width: 200px;">{{$user->name}}</td>
                                                 <td>{{$user->email}}</td>
+                                                <td>
+                                                    @foreach($user->roles as $role)
+                                                        <button class="btn btn-primary">{{$role->name}}</button> </br>
+                                                        @endforeach
+                                                </td>
                                                 <td>{{$user->created_at}}</td>
-                                                <td><a href="{{route('user.edit',['user'=>$user->id])}}" class="btn btn-success">Sửa</a></td>
-                                                <td><form action="{{route('user.destroy',['user'=>$user->id])}}" method="post">
+                                                <td><a href="{{route('employee.edit',['employee'=>$user->id])}}" class="btn btn-success">Sửa</a></td>
+                                                <td><form action="{{route('employee.destroy',['employee'=>$user->id])}}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <input class="btn btn-danger" type="submit" value="Xóa" data-name="{{$user->name}}" id="user_delete">
                                                     </form>
-                                                 </td>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

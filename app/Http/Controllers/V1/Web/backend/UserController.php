@@ -143,4 +143,10 @@ class UserController extends Controller
     {
         return view('frontend.page.login');
     }
+
+    public function searchCustomer(Request $request)
+    {
+        $users = $this->repository->search($request, 5);
+        return view('backend.show_user_list', compact('users'));
+    }
 }

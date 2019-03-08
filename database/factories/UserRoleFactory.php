@@ -8,6 +8,6 @@ $factory->define(\App\Models\UserRole::class, function (Faker $faker) {
         'user_id'=> function (){
         return  factory(\App\Models\User::class)->create()->id;
         },
-        'role_id'=> rand(1,3),
+        'role_id'=> rand(2,5),
     ];
 });
