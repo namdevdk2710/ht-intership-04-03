@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Role;
-use App\Repositories\V1\Admin\AdminRepositoryInterface;
-use View;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\V1\Admin\AdminRepositoryInterface;
 use App\Repositories\V1\Admin\AdminRepository;
 use App\Repositories\V1\User\UserRepository;
 use App\Repositories\V1\User\UserRepositoryInterface;
@@ -19,9 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $permission = Role::where('id', '!=', '1')->get();
-
-        // return View::share('permission', $permission);
+        //
     }
 
     /**
