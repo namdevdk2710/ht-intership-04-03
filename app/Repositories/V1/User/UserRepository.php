@@ -14,10 +14,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return User::class;
     }
+
     public function paginate($num)
     {
-        return User::doesntHave('userroles')->orderby('name','asc')->paginate($num);
+        return User::doesntHave('userroles')->orderby('name', 'asc')->paginate($num);
     }
+
     public function login($data, $remember = false)
     {
         return Auth::attempt($data, $remember);
@@ -25,8 +27,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function search($data, $num)
     {
-        $user = User::where('email', 'LIKE', '%'.$data->search.'%')->orwhere('name','LIKE','%'.$data->search.'%')->paginate($num);
-        $user->appends(['search'=>$data->search]);
+        $user = User::where('email', 'LIKE', '%'.$data->search.'%')
+            ->orwhere('name', 'LIKE', '%' . $data->search . '%')
+            ->paginate($num);
+        $user->appends(['search' => $data->search]);
+
         return $user;
     }
 }

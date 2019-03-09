@@ -120,7 +120,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $result = $this->repository->destroy($user->id);
+        $this->repository->destroy($user->id);
         return redirect()->back();
     }
 
