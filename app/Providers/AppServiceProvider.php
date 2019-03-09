@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $permission = Role::where('id','!=','1')->get();
-        return View::share('permission',$permission);
+        // $permission = Role::where('id','!=','1')->get();
+        // return View::share('permission',$permission);
     }
 
     /**
