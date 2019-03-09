@@ -23,6 +23,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('employee', 'V1\Web\backend\AdminController');
     Route::prefix('user')->group(function () {
         Route::put('/{user}/password', 'V1\Web\backend\UserController@updatePassword')->name('user.update_password');
-        Route::get('/search','V1\Web\backend\UserController@searchCustomer')->name('user.search_customer');
+        Route::get('/search', 'V1\Web\backend\UserController@searchCustomer')->name('user.search_customer');
     });
 });
