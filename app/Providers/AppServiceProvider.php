@@ -10,7 +10,6 @@ use App\Repositories\V1\Admin\AdminRepository;
 use App\Repositories\V1\User\UserRepository;
 use App\Repositories\V1\User\UserRepositoryInterface;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
