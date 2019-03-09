@@ -10,22 +10,22 @@ use Illuminate\Support\Facades\Auth;
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
 
-    public function getModel ()
+    public function getModel()
     {
         return User::class;
     }
 
-    public function paginate ($num)
+    public function paginate($num)
     {
         return User::doesntHave('userroles')->orderby('name', 'asc')->paginate($num);
     }
 
-    public function login ($data, $remember = false)
+    public function login($data, $remember = false)
     {
         return Auth::attempt($data, $remember);
     }
 
-    public function search ($data, $num)
+    public function search($data, $num)
     {
         $user = User::where('email', 'LIKE', '%'.$data->search.'%')
             ->orwhere('name', 'LIKE', '%' . $data->search . '%')
