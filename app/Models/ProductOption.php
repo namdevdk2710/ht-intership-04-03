@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductOption extends Model
 {
-    protected $tabel ='ProductOption' ;
+    protected $tabel ='product_option' ;
 
     protected $filltabel=[
         'optionname',
@@ -21,6 +21,6 @@ class ProductOption extends Model
     
     public function product()
     {
-        return $this->belongsTo(Product::class, 'id','id');
+        return $this->belongsTo(Product::class, 'product_id','id');
     }
 }

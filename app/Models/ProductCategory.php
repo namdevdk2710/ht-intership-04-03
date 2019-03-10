@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductCategory extends Model
 {
-    protected $tabel='productcategory';
+    protected $tabel='product_category';
 
     protected $filltabel=[
         'categoryname',
@@ -16,7 +16,7 @@ class ProductCategory extends Model
 
     public function product()
     {
-        return  $this->hasMany(Product::class,'id' ,'id');
+        return  $this->hasMany(Product::class,'product_id' ,'id');
     }
 
 }

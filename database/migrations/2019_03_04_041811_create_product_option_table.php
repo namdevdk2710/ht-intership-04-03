@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductOptionsTable extends Migration
+class CreateProductOptionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,16 +15,18 @@ class CreateProductOptionsTable extends Migration
     {
         Schema::create('product_options', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('product_id')->unsigned();
             $table->foreign('product_id')
                 ->references('id')
-                ->on('product');
+                ->on('product')
+                ->onDelete('cascade');
             $table->string('optionname',255);
             $table->string('size',4);
             $table->double('price');
             $table->tinyInteger('status');
             $table->string('color',50);
             $table->string('image');
-            $table->tetx('description');
+            $table->text('description');
             $table->integer('stock');
             $table->timestamps();
         });
