@@ -19,7 +19,6 @@ class AdminController extends Controller
 
     public function __construct(AdminRepositoryInterface $repository)
     {
-        
         return $this->repository = $repository;
     }
 
@@ -37,7 +36,7 @@ class AdminController extends Controller
     public function create()
     {
         $permission = $this->repository->create();
-        return view('backend.create_admin',compact('permission'));
+        return view('backend.create_admin', compact('permission'));
     }
 
     /**

@@ -40,7 +40,8 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
         }
     }
 
-    public function create(){
+    public function create()
+    {
         $role = Role::where('id', '!=', '1')->get();
         return $role;
     }
