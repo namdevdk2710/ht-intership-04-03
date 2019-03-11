@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\V1\Web\backend;
 
+use App\Http\Requests\StoreAdminRequest;
 use App\Models\User;
 use App\Repositories\V1\Admin\AdminRepositoryInterface;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ class AdminController extends Controller
 
     public function __construct(AdminRepositoryInterface $repository)
     {
-        $this->repository = $repository;
+        
+        return $this->repository = $repository;
     }
 
     public function index()
@@ -34,7 +36,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('backend.create_admin');
+        $permission = $this->repository->create();
+        return view('backend.create_admin',compact('permission'));
     }
 
     /**
@@ -43,7 +46,7 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAdminRequest $request)
     {
         return $this->repository->store($request);
     }
