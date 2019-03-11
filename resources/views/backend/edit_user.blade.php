@@ -8,7 +8,7 @@
 
             <div class="section-body">
                 <div class="row">
-                    <div class="col-7 ">
+                    <div class="col-7">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Chỉnh Sửa Thông Tin Người Dùng</h5>

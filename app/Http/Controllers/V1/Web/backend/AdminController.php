@@ -35,7 +35,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $permission = $this->repository->create();
+        $permission = $this->repository->roleList();
         return view('backend.create_admin', compact('permission'));
     }
 
@@ -67,9 +67,11 @@ class AdminController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $employee)
     {
-        //
+        $employee = $this->repository->edit($employee);
+        $permission = $this->repository->roleList();
+        return view('backend.edit_admin', compact(['permission', 'employee']));
     }
 
     /**
@@ -79,11 +81,27 @@ class AdminController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $employee)
     {
-        //
+        $result = $this->repository->updateAdmin($employee->id, $request);
+        if ($result) {
+            session()->flash('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
+            return redirect()->back();
+        }
+        session()->flash('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
+        return redirect()->back();
     }
 
+    public function updatePassword(Request $request, User $employee)
+    {
+        $result = $this->repository->update($employee->id, $request);
+        if ($result) {
+            session()->flash('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
+            return redirect()->back();
+        }
+        session()->flash('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
+        return redirect()->back();
+    }
     /**
      * Remove the specified resource from storage.
      *

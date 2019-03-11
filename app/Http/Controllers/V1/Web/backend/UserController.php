@@ -103,7 +103,7 @@ class UserController extends Controller
 
     public function updatePassword(UpdateUserPasswordRequest $request, User $user)
     {
-        $result = $this->repository->update($user->id, $request);
+        $result = $this->repository->updatePassword($user->id, $request);
         if ($result) {
             session()->flash('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
             return redirect()->back();
@@ -130,7 +130,7 @@ class UserController extends Controller
         $result = $this->repository->login($cresident, $request->remember);
         if ($result) {
             if ($this->repository->hasRole(Auth::id())) {
-                return redirect()->route('admin.home');
+                return redirect()->route('employee.index');
             }
             session()->flash('message', 'Đăng nhập thành công!');
             return redirect()->back();

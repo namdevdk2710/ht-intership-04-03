@@ -2,6 +2,7 @@
 
 namespace App\Repositories\V1\User;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Repositories\BaseRepository;
@@ -33,5 +34,21 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->appends(['search' => $data->search]);
 
         return $user;
+    }
+    public function hasRole($id)
+    {
+        $role = UserRole::where('user_id', $id)->get();
+        if (count($role)) return true;
+
+        return false;
+    }
+
+    public function updatePassword($request, $id)
+    {
+        $model= $this->model->findorfail($id);
+        $dataArray= $request->all();
+        $model->fill($dataArray);
+
+        return $model->save();
     }
 }
