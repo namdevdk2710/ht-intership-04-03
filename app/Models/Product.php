@@ -11,10 +11,10 @@ class Product extends Model
     protected $filltable=[
         'name',
         'description',
-    ] ;
+    ];
 
     public function productcategory()
     {
-        return  $this->belongsTo(ProductCategory::class ,'id','id');
+        return  $this->belongsTo(ProductCategory::class , 'category_id', 'id');
     }
 }

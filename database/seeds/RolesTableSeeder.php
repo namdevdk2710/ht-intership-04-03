@@ -14,12 +14,23 @@ class RolesTableSeeder extends Seeder
         \Illuminate\Support\Facades\DB::table('roles')->insert([
             [
                 'name' => 'Admin',
+                'code' => 'admin',
             ],
             [
-                'name' => 'ManageUser',
+                'name' => 'Khách Hàng',
+                'code' => 'customer',
             ],
             [
-                'name' => 'ManageOrder',
+                'name' => 'Đơn Hàng',
+                'code' => 'order',
+            ],
+            [
+                'name' => 'Sản Phẩm',
+                'code' => 'product',
+            ],
+            [
+                'name' => 'Phân Loại',
+                'code' => 'category',
             ],
         ]);
     }

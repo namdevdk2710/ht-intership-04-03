@@ -2,13 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Model
+class User extends Model implements Authenticatable
 {
-    protected $table= 'users';
+    use AuthenticableTrait;
+    use SoftDeletes;
 
-    protected $fillable=[
+    protected $table = 'users';
+
+    protected $fillable = [
         'name',
         'email',
         'password',
@@ -20,11 +27,22 @@ class User extends Model
         'created_at',
         'updated_at',
     ];
-    protected $hidden=[
+    protected $hidden = [
         'password',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
     public function userroles()
     {
         return $this->hasMany(UserRole::class, 'user_id', 'id');
+    }
+
+    public function setPasswordAttribute($pass)
+    {
+        $this->attributes['password'] = Hash::make($pass);
     }
 }
