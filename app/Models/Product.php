@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'product';
-
+    
     protected $filltable=[
         'name',
         'description',
@@ -15,6 +15,6 @@ class Product extends Model
 
     public function productcategory()
     {
-        return  $this->belongsTo(ProductCategory::class , 'category_id', 'id');
+        return $this->belongsTo(ProductCategory::class, 'category_id', 'id');
     }
 }
