@@ -38,7 +38,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function hasRole($id)
     {
         $role = UserRole::where('user_id', $id)->get();
-        if (count($role)) return true;
+        if (count($role)) {
+            return true;
+        }
 
         return false;
     }

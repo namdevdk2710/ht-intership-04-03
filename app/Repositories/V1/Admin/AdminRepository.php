@@ -76,7 +76,7 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
     public function edit(User $employee)
     {
         $roles = $employee->userroles()->get();
-        foreach ($roles as $index => $role){
+        foreach ($roles as $index => $role) {
             $userrole[$index] = $role->role_id;
         }
         $employee->role =$userrole;
