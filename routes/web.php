@@ -12,10 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('frontend.page.signup');
 });
 Auth::routes(['verify' => true]);
 Route::group(['namespace' => 'V1\Web\backend'], function () {
+    Route::post('register', 'UserController@register');
+    Route::get('register', 'UserController@showRegistrationForm')->name('register');
     Route::get('login', 'UserController@login')->name('login');
     Route::post('login', 'UserController@loginAttempt')->name('login_attempt');
 });

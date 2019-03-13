@@ -1,4 +1,4 @@
-@extends('master')
+@extends('frontend.master')
 @section ('content')
 <div class="inner-header">
     <div class="container">
@@ -16,48 +16,52 @@
 
 <div class="container">
     <div id="content">
-
-        <form action="#" method="post" class="beta-form-checkout">
-            <div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                    <h4>Đăng kí</h4>
-                    <div class="space20">&nbsp;</div>
-
-
-                    <div class="form-block">
-                        <label for="email">Email address*</label>
-                        <input type="email" id="email" required>
-                    </div>
-
-                    <div class="form-block">
-                        <label for="your_last_name">Fullname*</label>
-                        <input type="text" id="your_last_name" required>
-                    </div>
-
-                    <div class="form-block">
-                        <label for="adress">Address*</label>
-                        <input type="text" id="adress" value="Street Address" required>
-                    </div>
-
-
-                    <div class="form-block">
-                        <label for="phone">Phone*</label>
-                        <input type="text" id="phone" required>
-                    </div>
-                    <div class="form-block">
-                        <label for="phone">Password*</label>
-                        <input type="text" id="phone" required>
-                    </div>
-                    <div class="form-block">
-                        <label for="phone">Re password*</label>
-                        <input type="text" id="phone" required>
-                    </div>
-                    <div class="form-block">
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
+        <form method="post" action="{{route('register')}}">
+            @csrf
+            <div class="card-body" id="card-1">
+                <div class="form-group">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <label>Email <span style="color: red">*</span></label>
+                    <input type="email" id="email" name="email" class="form-control" required
+                           value="{{old('email')}}">
                 </div>
-                <div class="col-sm-3"></div>
+                <div class="form-group">
+                    <label>Tên <span style="color: red">*</span></label>
+                    <input type="text" id="name" name="name" class="form-control" required
+                           value="{{old('name')}}">
+                </div>
+                <div class="form-group">
+                    <label>Số Điện Thoại <span style="color: red">*</span></label>
+                    <input type="text" id="phone" name="phone" class="form-control" required
+                           value="{{old('phone')}}">
+                </div>
+                <div class="form-group">
+                    <label>Ngày Sinh <span style="color: red">*</span></label>
+                    <input type="date" id="birthday" name="birthday" class="form-control" required
+                           value="{{old('birthday')}}">
+                </div>
+                <div class="form-group">
+                    <label>Mật Khẩu <span style="color: red">*</span></label>
+                    <input type="password" id="password" name="password" class="form-control"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label>Xác Nhận Mật Khẩu<span style="color: red">*</span></label>
+                    <input type="password" id="confirm_password" name="confirm_password"
+                           class="form-control" required>
+                </div>
+                <div class="form-group d-flex justify-content-end">
+                    <input type="submit" id="submit" class="btn btn-success" value="Đăng Ký"
+                           required>
+                </div>
             </div>
         </form>
     </div> <!-- #content -->

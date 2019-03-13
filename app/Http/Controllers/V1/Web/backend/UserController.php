@@ -7,10 +7,12 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserLoginRequest;
+use App\Mail\VerifyMail;
 use App\Models\User;
 use App\Repositories\V1\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -54,11 +56,12 @@ class UserController extends Controller
             ]
         );
         if ($result) {
-            session()->flash('message', "<div class='alert alert-success'>Thêm người dùng thành công!</div>");
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')
+                ->with('message', "<div class='alert alert-success'>Thêm người dùng thành công!</div>");
         };
-        session()->flash('message', "<div class='alert alert-success'>Thêm người dùng thất bại</div>");
-        return redirect()->back();
+
+        return redirect()->back()
+            ->with('message', "<div class='alert alert-success'>Thêm người dùng thất bại</div>");
     }
 
     /**
@@ -94,10 +97,10 @@ class UserController extends Controller
     {
         $result = $this->repository->update($user->id, $request);
         if ($result) {
-            session()->flash('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
-            return redirect()->back();
+            return redirect()->back()->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
         }
         session()->flash('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
+
         return redirect()->back();
     }
 
@@ -105,11 +108,10 @@ class UserController extends Controller
     {
         $result = $this->repository->update($user->id, $request);
         if ($result) {
-            session()->flash('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
-            return redirect()->back();
+            return redirect()->back()->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
         }
-        session()->flash('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
-        return redirect()->back();
+
+        return redirect()->back()->with('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
     }
 
     /**
@@ -121,6 +123,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->repository->destroy($user->id);
+
         return redirect()->back();
     }
 
@@ -132,11 +135,11 @@ class UserController extends Controller
             if ($this->repository->hasRole(Auth::id())) {
                 return redirect()->route('admin.home');
             }
-            session()->flash('message', 'Đăng nhập thành công!');
-            return redirect()->back();
+
+            return redirect()->back()->with('message', 'Đăng nhập thành công!');
         }
-        session()->flash('message', 'Đăng nhập thất bại!');
-        return redirect()->back();
+
+        return redirect()->back()->with('message', 'Đăng nhập thất bại!');
     }
 
     public function login()
@@ -147,6 +150,33 @@ class UserController extends Controller
     public function searchCustomer(Request $request)
     {
         $users = $this->repository->search($request, 5);
+
         return view('backend.show_user_list', compact('users'));
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('frontend.page.signup');
+    }
+    public function register(Request $request)
+    {
+        $user = $this->repository->store(
+            [
+                'name' => $request->input('name'),
+                'password' => $request->input('password'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'birthday' => $request->input('birthday'),
+            ]
+        );
+
+        if ($user) {
+            Mail::to($request->input('email'))->send(new VerifyMail($user));
+            return redirect()->back()
+                ->with('message', "<div class='alert alert-success'>Đăng ký thành công!</div>");
+        };
+
+        return redirect()->back()
+            ->with('message', "<div class='alert alert-success'>Thêm người dùng thất bại</div>");
     }
 }
