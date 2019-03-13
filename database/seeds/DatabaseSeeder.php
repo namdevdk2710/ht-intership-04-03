@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesTableSeeder::class); //tạo Role mặc định
         $this->call(UserRolesTableSeeder::class); //tự động tạo USER và thêm USERROLE
-        $this->call(ProductCategorySeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(ProductOptionSeeder::class);
+//        $this->call(ProductCategorySeeder::class);
+//        $this->call(ProductSeeder::class);
+//        $this->call(ProductOptionSeeder::class);
         $this->call(AdminSeeder::class);
     }
 }
