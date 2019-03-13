@@ -14,8 +14,10 @@ class UpdateAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::user()->roles[0]->code == 'admin')
+        if (Auth::user()->roles[0]->code == 'admin') {
             return true;
+        }
+        return false;
     }
 
     /**
