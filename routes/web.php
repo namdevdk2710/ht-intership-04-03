@@ -13,10 +13,10 @@
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('index');
 Auth::routes(['verify' => true]);
 Route::group(['namespace' => 'V1\Web\backend'], function () {
-    Route::get('verify_token/{token}', 'UserController@token')->name('verify_token');
+    Route::get('verify_token/{token}', 'UserController@verifyAccount')->name('verify_token');
     Route::post('register', 'UserController@register');
     Route::get('register', 'UserController@showRegistrationForm')->name('register');
     Route::get('login', 'UserController@login')->name('login');

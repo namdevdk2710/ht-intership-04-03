@@ -183,7 +183,7 @@ class UserController extends Controller
 
     public function verifyAccount(Request $request)
     {
-        if ($request->token = null) {
+        if ($request->token == null) {
             return redirect()->route('index')
                 ->with('message', "<div class='alert alert-success'>Tài Khoản Đã Được Xác Nhận!</div>");
         }
