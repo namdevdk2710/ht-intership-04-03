@@ -180,4 +180,18 @@ class UserController extends Controller
         return redirect()->back()
             ->with('message', "<div class='alert alert-success'>Thêm người dùng thất bại</div>");
     }
+
+    public function verifyAccount(Request $request)
+    {
+        if ($request->token = null) {
+            return redirect()->route('index')
+                ->with('message', "<div class='alert alert-success'>Tài Khoản Đã Được Xác Nhận!</div>");
+        }
+        $user = $this->repository->verify($request->token);
+        if ($user) {
+            Auth::loginUsingId($user->id);
+        }
+        return redirect()->route('index')
+            ->with('message', "<div class='alert alert-success'>Xác Nhận Tài Khoản Thành Công!</div>");
+    }
 }
