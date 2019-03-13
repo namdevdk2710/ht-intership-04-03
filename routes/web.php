@@ -16,6 +16,9 @@ Route::get('/', function () {
 });
 Auth::routes(['verify' => true]);
 Route::group(['namespace' => 'V1\Web\backend'], function () {
+    Route::get('verify_token/{token}', 'UserController@token')->name('verify_token');
+    Route::post('register', 'UserController@register');
+    Route::get('register', 'UserController@showRegistrationForm')->name('register');
     Route::get('login', 'UserController@login')->name('login');
     Route::post('login', 'UserController@loginAttempt')->name('login_attempt');
 });
