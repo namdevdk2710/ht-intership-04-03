@@ -97,7 +97,6 @@ class UserController extends Controller
     {
         $result = $this->repository->update($user->id, $request);
         if ($result) {
-
             return redirect()->back()
                 ->with('message', "<div class='alert alert-success'>Cập nhật thành công!</div>");
         }
@@ -109,7 +108,6 @@ class UserController extends Controller
     {
         $result = $this->repository->update($user->id, $request);
         if ($result) {
-
             return redirect()->back()
                 ->with('message', "<div class='alert alert-success'>Cập nhật thành công!</div>");
         }
@@ -136,7 +134,6 @@ class UserController extends Controller
         $cresident = $request->only(['email', 'password']);
         $result = $this->repository->login($cresident, $request->remember);
         if ($result) {
-
             if ($this->repository->hasRole(Auth::id())) {
 
                 return redirect()->route('admin.home');
@@ -192,7 +189,6 @@ class UserController extends Controller
     public function verifyAccount(Request $request)
     {
         if ($request->token = null) {
-
             return redirect()->route('index')
                 ->with('message', "<div class='alert alert-success'>Tài Khoản Đã Được Xác Nhận!</div>");
         }
