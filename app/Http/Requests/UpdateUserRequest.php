@@ -40,7 +40,6 @@ class UpdateUserRequest extends FormRequest
             'image.mimes' => 'File tải lên phải có các định dạng :values',
             'image.max' => 'File tải lên phải có kích thước bé hơn :max',
             'name.required' => 'Vui lòng nhập tên người dùng',
-            'email.required' => 'Vui lòng nhập email',
             'email.unique' => 'Email này đã bị sử dụng',
             'birthday.before' => 'Ngày sinh không hợp lệ',
             'birthday.date_format' => 'Ngày sinh không đúng định dạng',
