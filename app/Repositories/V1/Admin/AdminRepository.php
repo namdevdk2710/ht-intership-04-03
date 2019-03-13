@@ -51,7 +51,7 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
         if ($data->hasFile('image')) {
             $file = $data->image;
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/img/avatar'), $fileName);
+            $file->move(public_path('storage/img/avatar'), $fileName);
             $fill->image= $fileName;
         }
 
