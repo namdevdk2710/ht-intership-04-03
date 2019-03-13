@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class UpdateUserRequest extends FormRequest
+class UpdateAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,8 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (Auth::user()->roles[0]->code == 'admin')
+            return true;
     }
 
     /**
@@ -29,6 +31,7 @@ class UpdateUserRequest extends FormRequest
             'birthday' => 'required|date_format:Y-m-d|before:today',
             'phone' => 'numeric| digits_between:5,20',
             'email' => 'required',
+            'permission' => 'required',
         ];
     }
 
@@ -46,6 +49,7 @@ class UpdateUserRequest extends FormRequest
             'birthday.required' => 'Vui lòng nhập ngày sinh',
             'phone.digits_between' => 'SĐT chứa số ký tự tối thiểu :min ký tự và tối đa :max ký tự',
             'phone.numeric' => 'SĐT phải chứa ký tự là số',
+            'permission.required' => 'Vui lòng chọn quyền cho người dùng',
         ];
     }
 }

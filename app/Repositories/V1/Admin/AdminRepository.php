@@ -55,7 +55,7 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
             $fill->image= $fileName;
         }
 
-        if ($model->save()) {
+        if ($result = $model->save()) {
             if ($dataArray['permission']) {
                 $model->userroles()->delete();
                 foreach ($dataArray['permission'] as $permission) {
@@ -66,6 +66,7 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
                 }
             }
         }
+        return $result;
     }
     public function roleList()
     {
