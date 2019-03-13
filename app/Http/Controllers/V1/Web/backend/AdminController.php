@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Web\backend;
 
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Models\User;
 use App\Repositories\V1\Admin\AdminRepositoryInterface;
 use Illuminate\Http\Request;
@@ -93,7 +94,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function updatePassword(Request $request, User $employee)
+    public function updatePassword(UpdateUserPasswordRequest $request, User $employee)
     {
         $result = $this->repository->update($employee->id, $request);
         if ($result) {

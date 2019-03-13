@@ -31,7 +31,7 @@
                             @method('put')
                             <div class="card-body" id="card-1">
                                 <div class="form-group" >
-                                    <img id="image-img" style="margin-bottom: 1vh" src="{{asset('img/avatar').'/'.$employee->image}}">
+                                    <img id="image-img" style="margin-bottom: 1vh" src="{{asset('storage/img/avatar').'/'.$employee->image}}">
                                     <input type="file" name="image" id="image" class="form-control">
                                 </div>
 
