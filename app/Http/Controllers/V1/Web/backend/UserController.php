@@ -99,10 +99,10 @@ class UserController extends Controller
         if ($result) {
 
             return redirect()->back()
-                ->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
+                ->with('message', "<div class='alert alert-success'>Cập nhật thành công!</div>");
         }
 
-        return redirect()->back()->with('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
+        return redirect()->back()->with('message', "<div class='alert alert-danger'>Cập nhật thất bại!</div>");
     }
 
     public function updatePassword(UpdateUserPasswordRequest $request, User $user)
@@ -111,11 +111,11 @@ class UserController extends Controller
         if ($result) {
 
             return redirect()->back()
-                ->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
+                ->with('message', "<div class='alert alert-success'>Cập nhật thành công!</div>");
         }
 
         return redirect()->back()
-            ->with('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
+            ->with('message', "<div class='alert alert-danger'>Cập nhật thất bại!</div>");
     }
 
     /**
