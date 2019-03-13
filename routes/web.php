@@ -12,10 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('frontend.page.signup');
-});
+    return view('frontend.page.home');
+})->name('index');
 Auth::routes(['verify' => true]);
 Route::group(['namespace' => 'V1\Web\backend'], function () {
+    Route::get('verify/{token}', 'UserController@verifyAccount')->name('verify_token');
     Route::post('register', 'UserController@register');
     Route::get('register', 'UserController@showRegistrationForm')->name('register');
     Route::get('login', 'UserController@login')->name('login');

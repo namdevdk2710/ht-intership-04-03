@@ -34,4 +34,13 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return $user;
     }
+    public function verify($token)
+    {
+        $user = User::where('verification_code', $token)->first();
+        $user->verification_code = null;
+        $user->email_verified_at = now();
+        $user->save();
+
+        return $user;
+    }
 }

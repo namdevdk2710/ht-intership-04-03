@@ -97,21 +97,25 @@ class UserController extends Controller
     {
         $result = $this->repository->update($user->id, $request);
         if ($result) {
-            return redirect()->back()->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
-        }
-        session()->flash('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
 
-        return redirect()->back();
+            return redirect()->back()
+                ->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
+        }
+
+        return redirect()->back()->with('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
     }
 
     public function updatePassword(UpdateUserPasswordRequest $request, User $user)
     {
         $result = $this->repository->update($user->id, $request);
         if ($result) {
-            return redirect()->back()->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
+
+            return redirect()->back()
+                ->with('message', "<div class='alert alert-success'>Cập nhật thông tin thành công!</div>");
         }
 
-        return redirect()->back()->with('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
+        return redirect()->back()
+            ->with('message', "<div class='alert alert-danger'>Cập nhật thông tin thất bại!</div>");
     }
 
     /**
@@ -132,7 +136,9 @@ class UserController extends Controller
         $cresident = $request->only(['email', 'password']);
         $result = $this->repository->login($cresident, $request->remember);
         if ($result) {
+
             if ($this->repository->hasRole(Auth::id())) {
+
                 return redirect()->route('admin.home');
             }
 
@@ -160,6 +166,7 @@ class UserController extends Controller
     }
     public function register(Request $request)
     {
+        $code = str_random(50);
         $user = $this->repository->store(
             [
                 'name' => $request->input('name'),
@@ -167,16 +174,33 @@ class UserController extends Controller
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'birthday' => $request->input('birthday'),
+                'verification_code' => $code,
             ]
         );
 
         if ($user) {
             Mail::to($request->input('email'))->send(new VerifyMail($user));
+
             return redirect()->back()
                 ->with('message', "<div class='alert alert-success'>Đăng ký thành công!</div>");
         };
 
         return redirect()->back()
             ->with('message', "<div class='alert alert-success'>Thêm người dùng thất bại</div>");
+    }
+
+    public function verifyAccount(Request $request)
+    {
+        if ($request->token = null) {
+
+            return redirect()->route('index')
+                ->with('message', "<div class='alert alert-success'>Tài Khoản Đã Được Xác Nhận!</div>");
+        }
+        $user = $this->repository->verify($request->token);
+        if ($user) {
+            Auth::loginUsingId($user->id);
+        }
+        return redirect()->route('index')
+            ->with('message', "<div class='alert alert-success'>Xác Nhận Tài Khoản Thành Công!</div>");
     }
 }
