@@ -12,11 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('backend.create_admin');
+    return view('home');
+});
+Auth::routes(['verify' => true]);
+Route::group(['namespace' => 'V1\Web\backend'], function () {
+    Route::get('login', 'UserController@login')->name('login');
+    Route::post('login', 'UserController@loginAttempt')->name('login_attempt');
 });
 
-Route::get('login', 'V1\Web\backend\UserController@login')->name('login');
-Route::post('login', 'V1\Web\backend\UserController@loginAttempt')->name('login_attempt');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'V1\Web\backend'], function () {
     Route::resource('user', 'UserController')->except('show');
