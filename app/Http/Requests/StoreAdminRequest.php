@@ -13,7 +13,10 @@ class StoreAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (Auth::user()->roles[0]->code == 'admin') {
+            return true;
+        }
+        return false;
     }
 
     /**
