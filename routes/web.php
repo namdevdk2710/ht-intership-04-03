@@ -30,5 +30,3 @@ Route::group(['prefix' => 'admin', 'namespace' => 'V1\Web\backend'], function ()
         Route::get('/search', 'UserController@searchCustomer')->name('user.search_customer');
     });
 });
-
-
