@@ -20,7 +20,7 @@ Route::post('login', 'V1\Web\backend\UserController@loginAttempt')->name('login_
 
 Route::group(['prefix' => 'admin', 'namespace' => 'V1\Web\backend'], function () {
     Route::resource('user', 'UserController')->except('show');
-    Route::resource('employee', 'V1\Web\backend\AdminController');
+    Route::resource('employee', 'AdminController');
 
     Route::group(['prefix' => 'user'], function () {
         Route::put('/{user}/password', 'UserController@updatePassword')->name('user.update_password');

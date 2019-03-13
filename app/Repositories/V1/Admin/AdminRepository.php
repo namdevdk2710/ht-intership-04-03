@@ -2,6 +2,7 @@
 
 namespace App\Repositories\V1\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 
@@ -37,5 +38,12 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
                 'user_id' => $user->id,
             ]);
         }
+    }
+
+    public function create()
+    {
+        $role = Role::where('id', '!=', '1')->get();
+        
+        return $role;
     }
 }
