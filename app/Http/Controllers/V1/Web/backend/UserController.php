@@ -135,7 +135,6 @@ class UserController extends Controller
         $result = $this->repository->login($cresident, $request->remember);
         if ($result) {
             if ($this->repository->hasRole(Auth::id())) {
-
                 return redirect()->route('admin.home');
             }
 
