@@ -7,10 +7,12 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserLoginRequest;
+use App\Mail\VerifyMail;
 use App\Models\User;
 use App\Repositories\V1\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -148,5 +150,48 @@ class UserController extends Controller
     {
         $users = $this->repository->search($request, 5);
         return view('backend.show_user_list', compact('users'));
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('frontend.page.signup');
+    }
+    public function register(Request $request)
+    {
+        $code = str_random(50);
+        $user = $this->repository->store(
+            [
+                'name' => $request->input('name'),
+                'password' => $request->input('password'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'birthday' => $request->input('birthday'),
+                'verification_code' => $code,
+            ]
+        );
+
+        if ($user) {
+            Mail::to($request->input('email'))->send(new VerifyMail($user));
+
+            return redirect()->back()
+                ->with('message', "<div class='alert alert-success'>Đăng ký thành công!</div>");
+        };
+
+        return redirect()->back()
+            ->with('message', "<div class='alert alert-success'>Thêm người dùng thất bại</div>");
+    }
+
+    public function verifyAccount(Request $request)
+    {
+        if ($request->token == null) {
+            return redirect()->route('index')
+                ->with('message', "<div class='alert alert-success'>Tài Khoản Đã Được Xác Nhận!</div>");
+        }
+        $user = $this->repository->verify($request->token);
+        if ($user) {
+            Auth::loginUsingId($user->id);
+        }
+        return redirect()->route('index')
+            ->with('message', "<div class='alert alert-success'>Xác Nhận Tài Khoản Thành Công!</div>");
     }
 }
